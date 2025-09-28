@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "DB_Review"."Review" ALTER COLUMN "created_at" SET DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "DB_Review"."Shop" ALTER COLUMN "created_at" SET DEFAULT CURRENT_TIMESTAMP;

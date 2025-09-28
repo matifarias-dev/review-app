@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas = ["DB_Review"]
+  url      = env("DATABASE_URL")
+}
+
+model Shop {
+  id             Int    @id @default(autoincrement())
+  shop_uuid    String @unique @default(dbgenerated("gen_random_uuid()"))
+  place_id       String
+  formatted_address String
+  name           String
+  logo_url       String
+  reviews        Review[]
+  created_at   DateTime @default(now()) @db.Timestamptz(3)
+  @@map("Shop")
+  @@schema("DB_Review")
+}
+
+model Review {
+  id           Int      @id @default(autoincrement())
+  shop_uuid    String
+  shop        Shop     @relation(fields: [shop_uuid], references: [shop_uuid])
+  rating       Int
+  comment      String
+  created_at   DateTime @default(now()) @db.Timestamptz(3)
+
+  @@map("Review")
+  @@schema("DB_Review")
+}
