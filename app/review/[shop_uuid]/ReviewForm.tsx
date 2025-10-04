@@ -1,8 +1,13 @@
 'use client';
 
+import { Shop } from '@prisma/client';
 import { useState } from 'react';
 
-export default function ReviewForm({ shop }: { shop: any }) {
+interface Props {
+  shop: Shop;
+}
+
+export default function ReviewForm({ shop }: Props) {
   const [rating, setRating] = useState<number | null>(null);
   const [comment, setComment] = useState<string>('');
   const [submitted, setSubmitted] = useState(false);
@@ -16,7 +21,7 @@ export default function ReviewForm({ shop }: { shop: any }) {
       headers: { 'Content-Type': 'application/json' },
     });
     setSubmitted(true);
-    if (rating !== null && rating >= 3) {
+    if (rating !== null && rating > shop.ratingGoal) {
       window.open(`https://search.google.com/local/writereview?placeid=${shop.place_id}`, '_blank');
     }
   };
@@ -29,7 +34,7 @@ export default function ReviewForm({ shop }: { shop: any }) {
             key={n}
             style={{
               cursor: 'pointer',
-              color: n <= (rating ?? 0) ? '#FFD700' : '#ccc',
+              color: n <= (rating ?? 0) ? '#F3BF1A' : '#ccc',
               marginRight: 6,
             }}
             onClick={() => setRating(n)}
@@ -37,36 +42,34 @@ export default function ReviewForm({ shop }: { shop: any }) {
           >★</span>
         ))}
       </div>
-      <button
-        type="submit"
-        disabled={rating === null}
-        style={{ marginTop: 16, padding: '8px 24px', fontSize: 16, borderRadius: 8, background: '#0070f3', color: '#fff', border: 'none', cursor: 'pointer' }}
-      >Enviar puntuación</button>
-      {submitted && rating !== null && (
+      { rating !== null && (
         <div style={{ marginTop: 24 }}>
-          <span>
-            ¡Gracias por tu reseña!
-          </span>
-          {/* {rating >= 3 && (
+          {rating <= shop.ratingGoal && (
             <div style={{ marginTop: 16 }}>
-              <p>¿Te animas a repetir tu reseña en Google Maps?</p>
-              <a
-                href={`https://search.google.com/local/writereview?placeid=${shop.place_id}`}
-                target="_blank"
-                rel="noopener"
-                style={{
-                  color: '#fff',
-                  background: '#34a853',
-                  padding: '10px 22px',
-                  borderRadius: 8,
-                  textDecoration: 'none',
-                  fontWeight: 600,
-                  marginTop: 8,
-                  display: 'inline-block'
-                }}
-              >Dejar reseña en Google Maps</a>
+              <p>¿Nos ayudas a mejorar?</p>
+              <textarea
+                placeholder="Déjanos tu comentario"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                style={{ width: '100%', height: 80, padding: 8, borderRadius: 8, borderColor: '#ccc', marginTop: 8 }}
+              />
             </div>
-          )} */}
+          )}
+
+          <button
+            type="submit"
+            disabled={rating === null}
+            style={{ marginTop: 16, padding: '8px 24px', fontSize: 16, borderRadius: 8, background: '#275d3c', color: '#fff', border: 'none', cursor: 'pointer' }}
+            >
+            Enviar
+          </button>
+          {
+            submitted && (
+              <div style={{ marginTop: 16 }}>
+                <span>¡Gracias por tu opinión!</span>
+              </div>
+            )
+          }
         </div>
       )}
     </form>
