@@ -4,6 +4,11 @@ const roboto = Roboto({ subsets: ['latin'] })
 export const metadata = {
   title: 'Review App',
   description: 'App de reviews para comercios',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
 }
 
 export default function RootLayout({

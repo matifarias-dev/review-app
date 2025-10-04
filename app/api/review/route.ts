@@ -9,5 +9,6 @@ export async function POST(req: NextRequest) {
   }
   
   await saveReview({ shop_uuid, rating, comment });
+  console.log('Review guardada:', { shop_uuid, rating, comment });
   return NextResponse.json({ ok: true });
 }

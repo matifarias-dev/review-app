@@ -27,11 +27,16 @@ export default function ReviewForm({ shop }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ textAlign: 'center', marginTop: 24 }}>
-      <div style={{ fontSize: 30 }}>
-        {[1,2,3,4,5].map(n => (
-          <span
-            key={n}
+    submitted ? (
+      <div style={{ textAlign: 'center', marginTop: 24 }}>
+        <span>¡Gracias por tu opinión!</span>
+      </div>
+    ) : (
+      <form onSubmit={handleSubmit} style={{ textAlign: 'center', marginTop: 24 }}>
+        <div style={{ fontSize: 30 }}>
+          {[1,2,3,4,5].map(n => (
+            <span
+              key={n}
             style={{
               cursor: 'pointer',
               color: n <= (rating ?? 0) ? '#F3BF1A' : '#ccc',
@@ -63,15 +68,8 @@ export default function ReviewForm({ shop }: Props) {
             >
             Enviar
           </button>
-          {
-            submitted && (
-              <div style={{ marginTop: 16 }}>
-                <span>¡Gracias por tu opinión!</span>
-              </div>
-            )
-          }
         </div>
       )}
     </form>
-  );
+  ));
 }
