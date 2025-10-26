@@ -18,7 +18,7 @@ export default async function ReviewPage( props : Props) {
   return (
     <main style={{ maxWidth: 420, margin: 'auto', padding: 16 }}>
       <img
-        src={shop.logo_url}
+        src="/images/logo-central.jpg"
         alt={`Logo de ${shop.name}`}
         style={{ width: 120, height: 120, borderRadius: 16, margin: '0 auto', display: 'block' }}
       />

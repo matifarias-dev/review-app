@@ -42,9 +42,10 @@ insert into "Shop" (place_id, formatted_address, name, logo_url) values
 UPDATE "Shop" SET logo_url = 'https://wqlshcmualnpoqktavsd.supabase.co/storage/v1/object/sign/files-bucket/logo-comercios/Logo%20Central%20de%20pizza%20y%20empanadas.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mYWE5ZjUxMi05NDRiLTQwYmQtOTNlNi0xNzcwM2I0M2ZjMjUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmaWxlcy1idWNrZXQvbG9nby1jb21lcmNpb3MvTG9nbyBDZW50cmFsIGRlIHBpenphIHkgZW1wYW5hZGFzLmpwZyIsImlhdCI6MTc1ODk0ODk0OCwiZXhwIjoyMDc0MzA4OTQ4fQ.elS2atREaj1wwjHyPadtoW0eQIEwGp-YHnUq9x7hHB0' WHERE shop_uuid = '63661810-7b5c-4276-ac12-b26a9d1528a7';
 
 select * from "Shop";
-
-select * from "Review";
-
+--prod
+select * from "Review" where shop_uuid = '63661810-7b5c-4276-ac12-b26a9d1528a7' ORDER BY created_at DESC;
+--desa
+select * from "Review" where shop_uuid = '42382075-17d7-4a8a-8d15-8d1686d12753' ORDER BY created_at DESC;
 --validacion timezone en reviews
 SELECT created_at, 
        created_at AT TIME ZONE '-3' as gmt_minus_3

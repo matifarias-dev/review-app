@@ -30,8 +30,15 @@ export async function getReviewsByShop(shop_uuid: string) {
 
 // Función para obtener shop con sus reviews
 export async function getShopWithReviews(shop_uuid: string) {
+  console.log('Obteniendo shop con reviews para shop_uuid:', shop_uuid);
+  const shop = await prisma.shop.findUnique({
+    where: { shop_uuid: shop_uuid },
+  });
+
+  console.log("SHOP:", shop);
+
   return await prisma.shop.findUnique({
-    where: { shop_uuid },
+    where: { shop_uuid: shop_uuid },
     include: {
       reviews: {
         orderBy: { created_at: 'desc' }
